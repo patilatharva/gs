@@ -1,6 +1,6 @@
 import yargs from 'yargs';
-import { commitAmendAction } from '../../actions/commit_amend';
-import { graphite } from '../../lib/runner';
+import { commitAmendAction } from '../actions/commit_amend';
+import { graphite } from '../lib/runner';
 
 const args = {
   all: {
@@ -41,7 +41,7 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'amend';
-export const canonical = 'commit amend';
+export const canonical = 'amend';
 export const aliases = ['a'];
 export const description =
   'Amend the most recent commit and restack upstack branches.';

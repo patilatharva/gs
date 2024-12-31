@@ -1,10 +1,10 @@
-import { submitAction } from '../../actions/submit/submit_action';
-import { SCOPE } from '../../lib/engine/scope_spec';
-import { graphite } from '../../lib/runner';
-import type { argsT } from '../shared-commands/submit';
+import { submitAction } from '../actions/submit/submit_action';
+import { SCOPE } from '../lib/engine/scope_spec';
+import { graphite } from '../lib/runner';
+import type { argsT } from './shared-commands/submit';
 
-export { aliases, args, builder, command } from '../shared-commands/submit';
-export const canonical = 'stack submit';
+export { aliases, args, builder, command } from './shared-commands/submit';
+export const canonical = 'submit';
 export const description =
   'Idempotently force push all branches in the current stack to GitHub, creating or updating distinct pull requests for each.';
 

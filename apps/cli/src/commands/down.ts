@@ -1,6 +1,6 @@
 import yargs from 'yargs';
-import { switchBranchAction } from '../../actions/branch_traversal';
-import { graphite } from '../../lib/runner';
+import { switchBranchAction } from '../actions/branch_traversal';
+import { graphite } from '../lib/runner';
 
 const args = {
   steps: {
@@ -15,7 +15,7 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'down [steps]';
-export const canonical = 'branch down';
+export const canonical = 'down';
 export const aliases = ['d'];
 export const description = 'Switch to the parent of the current branch.';
 export const builder = args;
