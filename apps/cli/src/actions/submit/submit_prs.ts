@@ -151,8 +151,8 @@ function createNewPrOnGitHub(
   const result = execSync(
     `gh pr create --head '${request.head}' \
                 --base '${request.base}' \
-                --title '${request.title}' \
-                --body '${request.body}' \
+                --title '${request.title?.replace(/'/g, `'\\''`)}' \
+                --body '${request.body?.replace(/'/g, `'\\''`)}' \
                 ${request.draft ? '--draft' : ''}`
   )
     .toString()
