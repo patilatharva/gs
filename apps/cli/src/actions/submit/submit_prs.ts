@@ -97,7 +97,7 @@ async function submitPrToGithub({
   try {
     const prInfo = await JSON.parse(
       execSync(
-        `gh pr view ${request.head} --json headRefName,url,number,baseRefName,body`
+        `gh pr view ${request.head} --json headRefName,url,number,baseRefName,body,closed`
       ).toString()
     );
 
@@ -105,6 +105,10 @@ async function submitPrToGithub({
       throw Error(
         `PR head mismatch: ${prInfo.headRefName} !== ${request.head}`
       );
+    }
+
+    if (prInfo.closed) {
+      return createNewPrOnGitHub(request);
     }
 
     const prBaseChanged = prInfo.baseRefName !== request.base;
@@ -124,24 +128,7 @@ async function submitPrToGithub({
       error instanceof Error &&
       error.message.includes('no pull requests found')
     ) {
-      const result = execSync(
-        `gh pr create --head '${request.head}' \
-                    --base '${request.base}' \
-                    --title '${request.title}' \
-                    --body '${request.body}' \
-                    ${request.draft ? '--draft' : ''}`
-      )
-        .toString()
-        .trim();
-
-      const prNumber = getPrNumberFromUrl(result);
-
-      return {
-        head: request.head,
-        status: 'created',
-        prNumber,
-        prURL: result,
-      };
+      return createNewPrOnGitHub(request);
     }
 
     throw error;
@@ -156,4 +143,27 @@ function getPrNumberFromUrl(url: string): number {
   }
 
   return Number(prNumber);
+}
+
+function createNewPrOnGitHub(
+  request: TSubmittedPRRequest
+): TSubmittedPRResponse {
+  const result = execSync(
+    `gh pr create --head '${request.head}' \
+                --base '${request.base}' \
+                --title '${request.title}' \
+                --body '${request.body}' \
+                ${request.draft ? '--draft' : ''}`
+  )
+    .toString()
+    .trim();
+
+  const prNumber = getPrNumberFromUrl(result);
+
+  return {
+    head: request.head,
+    status: 'created',
+    prNumber,
+    prURL: result,
+  };
 }
