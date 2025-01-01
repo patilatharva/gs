@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import { TContext } from '../../lib/context';
 import { ExitFailedError } from '../../lib/errors';
 import { Unpacked } from '../../lib/utils/ts_helpers';
-import { execSync } from 'child_process';
+import { execSync, execFileSync } from 'child_process';
 
 export type TPRSubmissionInfo = t.UnwrapSchemaMap<
   typeof API_ROUTES.submitPullRequests.params
@@ -148,13 +148,18 @@ function getPrNumberFromUrl(url: string): number {
 function createNewPrOnGitHub(
   request: TSubmittedPRRequest
 ): TSubmittedPRResponse {
-  const result = execSync(
-    `gh pr create --head '${request.head}' \
-                --base '${request.base}' \
-                --title '${request.title}' \
-                --body '${request.body}' \
-                ${request.draft ? '--draft' : ''}`
-  )
+  const result = execFileSync('gh', [
+    'pr',
+    'create',
+    '--head',
+    request.head,
+    '--base',
+    request.base,
+    '--title',
+    request.title ?? '',
+    '--body',
+    request.body ?? '',
+  ])
     .toString()
     .trim();
 
