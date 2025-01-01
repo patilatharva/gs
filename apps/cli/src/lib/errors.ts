@@ -30,7 +30,7 @@ export class PreconditionsFailedError extends Error {
 
 export class ConcurrentExecutionError extends Error {
   constructor() {
-    super(`Cannot run more than one Charcoal process at once.`);
+    super(`Cannot run more than one gs process at once.`);
     this.name = 'ConcurrentExecutionError';
   }
 }
@@ -75,7 +75,7 @@ export class BadTrunkOperationError extends Error {
 
 export class KilledError extends Error {
   constructor() {
-    super(`Killed Charcoal early.`);
+    super(`Killed gs early.`);
     this.name = 'Killed';
   }
 }
@@ -96,7 +96,7 @@ export class BlockedDuringRebaseError extends Error {
 
 export class NoGraphiteContinue extends Error {
   constructor(didYouMean?: string) {
-    const baseMsg = `No Charcoal operation to continue.`;
+    const baseMsg = `No gs operation to continue.`;
     super(
       didYouMean
         ? [baseMsg, `Did you mean ${chalk.cyan(didYouMean)}?`].join('\n')

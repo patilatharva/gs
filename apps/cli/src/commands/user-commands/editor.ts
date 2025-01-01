@@ -7,19 +7,19 @@ const args = {
     demandOption: false,
     default: '',
     type: 'string',
-    describe: 'Set default editor for Charcoal. eg --set vim.',
+    describe: 'Set default editor for gs. eg --set vim.',
   },
   unset: {
     demandOption: false,
     default: false,
     type: 'boolean',
-    describe: 'Unset default editor for Charcoal.',
+    describe: 'Unset default editor for gs.',
   },
 } as const;
 
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const command = 'editor';
-export const description = 'The editor opened by Charcoal.';
+export const description = 'The editor opened by gs.';
 export const canonical = 'user editor';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
@@ -38,7 +38,7 @@ export const handler = async (argv: argsT): Promise<void> => {
       context.userConfig.data.editor
         ? context.splog.info(chalk.cyan(context.userConfig.data.editor))
         : context.splog.info(
-            `Editor is not set. Charcoal will use your git editor (currently ${chalk.cyan(
+            `Editor is not set. gs will use your git editor (currently ${chalk.cyan(
               context.userConfig.getEditor()
             )})`
           );

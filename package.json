@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "charcoal",
+  "name": "gs",
   "workspaces": {
     "packages": [
       "./apps/cli",

@@ -65,7 +65,7 @@ export function parseBranchesAndMeta(
     (branchesToParse.length * (branchesToParse.length + 1)) / 2;
   while (branchesToParse.length > 0) {
     if (cycleDetector-- <= 0) {
-      throw new PreconditionsFailedError('Cycle detected in Charcoal metadata');
+      throw new PreconditionsFailedError('Cycle detected in gs metadata');
     }
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

@@ -24,8 +24,7 @@ type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const aliases = ['dl'];
 export const command = 'delete [name]';
 export const canonical = 'delete';
-export const description =
-  'Delete a branch and its corresponding Charcoal metadata.';
+export const description = 'Delete a branch and its corresponding gs metadata.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> =>
   graphite(argv, canonical, async (context) => {

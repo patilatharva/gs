@@ -10,7 +10,7 @@ export async function getAction(
   context: TContext
 ): Promise<void> {
   context.splog.message(
-    '⚠️ This command is not not yet implemented in Charcoal :-( \n\nPlease check out the issue on GitHub https://github.com/danerwilliams/charcoal/issues/6'
+    '⚠️ This command is not not yet implemented in gs :-( \n\nPlease check out the issue on GitHub https://github.com/danerwilliams/charcoal/issues/6'
   );
 }
 
