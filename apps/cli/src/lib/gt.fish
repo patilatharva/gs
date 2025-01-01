@@ -1,4 +1,4 @@
-### Installation: gt fish >> ~/.config/fish/completions/gt.fish
+### Installation: gs fish >> ~/.config/fish/completions/gs.fish
 # git helpers adapted from fish git completion
 function __fish_git_local_branches
     command git for-each-ref --format='%(refname:strip=2)' refs/heads/ 2>/dev/null
@@ -9,7 +9,7 @@ function __fish_git_remote_branches
 end
 
 # graphite helpers
-function __gt_command_completions
+function __gs_command_completions
     set -lx SHELL (type -p fish)
     set -l command (commandline -opc)
     # uncomment to include options, e.g. -q, --help
@@ -19,13 +19,13 @@ function __gt_command_completions
 end
 
 # disable file completions for the entire command
-complete -c gt -f
+complete -c gs -f
 
 # add completions as provided by CLI
-complete -c gt -a "(__gt_command_completions)"
+complete -c gs -a "(__gs_command_completions)"
 
 # commands that take branches
-complete -c gt -x -n "__fish_seen_subcommand_from checkout co bco delete onto track untrack" -a "(__fish_git_local_branches)"
+complete -c gs -x -n "__fish_seen_subcommand_from checkout co bco delete onto track untrack" -a "(__fish_git_local_branches)"
 
-# gt downstack get takes remote branches
-complete -c gt -x -n "__fish_seen_subcommand_from downstack ds dsg" -n "__fish_seen_subcommand_from get dsg" -a "(__fish_git_remote_branches)"
+# gs downstack get takes remote branches
+complete -c gs -x -n "__fish_seen_subcommand_from downstack ds dsg" -n "__fish_seen_subcommand_from get dsg" -a "(__fish_git_remote_branches)"

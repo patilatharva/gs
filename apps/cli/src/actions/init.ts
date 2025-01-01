@@ -97,8 +97,8 @@ async function branchOnboardingFlow(context: TContext) {
   context.splog.tip(
     [
       "If you have an existing branch or stack that you'd like to start working on with gs, you can begin tracking it now!",
-      'To add other non-gs branches to gs later, check out `gt branch track`.',
-      'If you only want to use gs for new branches, feel free to exit now and use `gt branch create`.',
+      'To add other non-gs branches to gs later, check out `gs branch track`.',
+      'If you only want to use gs for new branches, feel free to exit now and use `gs create`.',
     ].join('\n')
   );
   if (

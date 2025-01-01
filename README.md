@@ -89,16 +89,16 @@ Running the CLI locally (after build)
 
 ```
 cd apps/cli
-yarn cli <command> # (to run `gt <command>`)
+yarn cli <command> # (to run `gs <command>`)
 ```
 
-Linking `gt` to a locally built version (includes a build)
+Linking `gs` to a locally built version (includes a build)
 
 ```
 cd apps/cli
 yarn dev
 # then to run commands:
-gt <command>
+gs <command>
 ```
 
 Running into difficulties getting the CLI repo set up on your system? Check out [this PR](https://github.com/withgraphite/graphite-cli/pull/1066?no-redirect=1)

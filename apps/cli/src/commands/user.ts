@@ -2,7 +2,7 @@ import { Argv } from 'yargs';
 
 export const command = 'user <command>';
 export const desc =
-  "Read or write gs's user configuration settings. Run `gt user --help` to learn more.";
+  "Read or write gs's user configuration settings. Run `gs user --help` to learn more.";
 
 export const builder = function (yargs: Argv): Argv {
   return yargs
