@@ -1,14 +1,14 @@
 import yargs from 'yargs';
 import { deleteBranchAction } from '../../actions/delete_branch';
 import { graphite } from '../../lib/runner';
+import { interactiveBranchSelection } from '../../actions/log';
 
 const args = {
-  name: {
+  branch: {
+    describe: 'The name of the branch to delete.',
     type: 'string',
     positional: true,
-    demandOption: true,
-    optional: false,
-    describe: 'The name of the branch to delete.',
+    demandOption: false,
     hidden: true,
   },
   force: {
@@ -28,6 +28,18 @@ export const description =
   'Delete a branch and its corresponding Charcoal metadata.';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> =>
-  graphite(argv, canonical, async (context) =>
-    deleteBranchAction({ branchName: argv.name, force: argv.force }, context)
-  );
+  graphite(argv, canonical, async (context) => {
+    const branchToDelete =
+      argv.branch ??
+      (await interactiveBranchSelection(
+        {
+          message: `Choose a branch to delete (autocomplete or arrow keys)`,
+        },
+        context
+      ));
+
+    deleteBranchAction(
+      { branchName: branchToDelete, force: argv.force },
+      context
+    );
+  });
