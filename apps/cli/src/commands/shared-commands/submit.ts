@@ -6,19 +6,19 @@ export const command = 'submit';
  * Primary interaction patterns:
  *
  * # (default) allows user to edit PR fields inline and then submits stack as a draft
- * gt stack submit
+ * gs stack submit
  *
  * # skips editing PR fields inline, submits stack as a draft
- * gt stack submit --no-edit
+ * gs stack submit --no-edit
  *
  * # allows user to edit PR fields inline, then opens as draft
- * gt stack submit --draft
+ * gs stack submit --draft
  *
  * # allows user to edit PR fields inline, then publishes
- * gt stack submit --publish
+ * gs stack submit --publish
  *
- * # same as gt stack submit --no-edit
- * gt stack submit --no-interactive
+ * # same as gs stack submit --no-edit
+ * gs stack submit --no-interactive
  *
  */
 export const args = {

@@ -267,7 +267,7 @@ function getBranchLines(
     );
   }
 
-  // `gt log short` case
+  // `gs log short` case
   if (args.short) {
     return [
       `${'│ '.repeat(args.indentLevel)}${'◯'}${
@@ -288,7 +288,7 @@ function getBranchLines(
     ];
   }
 
-  // `gt log` case
+  // `gs log` case
   const outputDeep = [
     args.skipBranchingLine
       ? []

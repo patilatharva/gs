@@ -8,5 +8,5 @@ export const builder = function (yargs: yargs.Argv): yargs.Argv {
       extensions: ['js'],
     })
     .strict()
-    .showHelpOnFail(false, `Use 'gt feedback --help' for usage`);
+    .showHelpOnFail(false, `Use 'gs feedback --help' for usage`);
 };

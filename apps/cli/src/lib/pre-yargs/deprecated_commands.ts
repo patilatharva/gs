@@ -7,17 +7,17 @@ const NAV_WARNING = [
 
 const INFO_WARNING = [
   'The `branch` command `show` has been renamed.',
-  'Please use `info` (aka `gt bi`).',
+  'Please use `info` (aka `gs bi`).',
 ].join('\n');
 
 const GET_WARNING = [
   'The `downstack` command `sync` has been renamed.',
-  'Please use `get` (aka `gt dsg`).',
+  'Please use `get` (aka `gs dsg`).',
 ].join('\n');
 
 const FIX_WARNING = [
   'The `upstack` and `stack` command `fix` has been renamed.',
-  'Please use `restack` (aka `gt sr`/`gt usr`).',
+  'Please use `restack` (aka `gs sr`/`gs usr`).',
   'The `fix`/`f` alias will be removed in an upcoming version.',
 ].join('\n');
 
