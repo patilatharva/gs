@@ -17,7 +17,7 @@ export async function showBranchInfo(
   const children = context.engine.getChildren(branchName);
   if (children.length) {
     output.push(`${chalk.cyan('Children')}:`);
-    output.concat(children.map((c) => `▸ ${c}`));
+    output.push(...children.map((c) => `▸ ${c}`));
   }
 
   const body = opts.body && context.engine.getPrInfo(branchName)?.body;
