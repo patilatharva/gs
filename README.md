@@ -1,4 +1,4 @@
-# Charcoal
+# gs - git stacker
 
 > A CLI for managing stacked pull requests
 
@@ -14,9 +14,9 @@ From Graphite:
 
 > [Graphite](https://graphite.dev) is a **fast, simple code review platform** designed for engineers who want to **write and review smaller pull requests, stay unblocked, and ship faster**.  Anyone can start using Graphite individually without needing their coworkers to change tools - we'll seamlessly sync your code changes and reviews.  We built Graphite because we missed internal code review tools like Phabricator (at Facebook) and Critique (Google) that help engineers create, approve, and ship small, incremental changes, and long-term we’re passionate about creating products & workflows that help fast-moving eng teams achieve more.
 
-## What is Charcoal?
+## What is gs?
 
-Charcoal is simply the Graphite CLI, but open source!
+gs is simply the Graphite CLI, but open source!
 
 On 7/14/2023 the Graphite team announced that they closed open source development of the Graphite CLI and [moved development to their private monorepo](https://github.com/withgraphite/graphite-cli). They also added a pay wall limiting free users to 10 open stacks at a time per organization starting 8/7/2023.
 
@@ -30,13 +30,13 @@ The Graphite CLI does not need to depend on Graphite's API, so this project allo
 
 <https://graphite.dev/docs/graphite-cli/>
 
-Right now, the Graphite Docs are more or less in sync with the features available in Charcoal.
+Right now, the Graphite Docs are more or less in sync with the features available in gs.
 
 As Graphite continues to develop their private version of the CLI, however, these will become out of sync. Ideally we can add our own open source docs to accompany this project.
 
 ## Developing and Running tests
 
-Interested in contributing to Charcoal? Here's how to get started.
+Interested in contributing to gs? Here's how to get started.
 
 You'll need to install yarn on your machine
 

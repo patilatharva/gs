@@ -6,25 +6,25 @@ const args = {
   set: {
     demandOption: false,
     type: 'string',
-    describe: 'Set default pager for Charcoal. e.g. --set "less -FRX".',
+    describe: 'Set default pager for gs. e.g. --set "less -FRX".',
   },
   disable: {
     demandOption: false,
     default: false,
     type: 'boolean',
-    describe: 'Disable pager for Charcoal',
+    describe: 'Disable pager for gs',
   },
   unset: {
     demandOption: false,
     default: false,
     type: 'boolean',
-    describe: 'Unset default pager for Charcoal and default to git pager.',
+    describe: 'Unset default pager for gs and default to git pager.',
   },
 } as const;
 
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 export const command = 'pager';
-export const description = 'The pager opened by Charcoal.';
+export const description = 'The pager opened by gs.';
 export const canonical = 'user pager';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
@@ -50,7 +50,7 @@ export const handler = async (argv: argsT): Promise<void> => {
         : context.userConfig.data.pager
         ? context.splog.info(chalk.cyan(context.userConfig.data.pager))
         : context.splog.info(
-            `Pager is not set. Charcoal will use your git pager (currently ${chalk.cyan(
+            `Pager is not set. gs will use your git pager (currently ${chalk.cyan(
               currentPager
             )})`
           );

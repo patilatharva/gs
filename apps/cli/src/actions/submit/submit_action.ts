@@ -72,9 +72,7 @@ export async function submitAction(
     : allBranchNames;
 
   context.splog.info(
-    chalk.blueBright(
-      `🥞 Validating that this Charcoal stack is ready to submit...`
-    )
+    chalk.blueBright(`🥞 Validating that this gs stack is ready to submit...`)
   );
   context.splog.newline();
   await validateBranchesToSubmit(branchNames, context);

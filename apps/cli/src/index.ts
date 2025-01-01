@@ -27,7 +27,7 @@ void yargs(getYargsInput())
   .commandDir('commands')
   .help()
   .usage(
-    'Charcoal is a command line tool that makes working with stacked changes fast & intuitive.\n\nhttps://docs.graphite.dev/guides/graphite-cli'
+    'gs is a command line tool that makes working with stacked changes fast & intuitive.\n\nhttps://docs.graphite.dev/guides/graphite-cli'
   )
   .options(globalArgumentsOptions)
   .global(Object.keys(globalArgumentsOptions))
