@@ -1,8 +1,8 @@
 import chalk from 'chalk';
 import yargs from 'yargs';
-import { currentBranchOnto } from '../../actions/current_branch_onto';
-import { interactiveBranchSelection } from '../../actions/log';
-import { graphite } from '../../lib/runner';
+import { currentBranchOnto } from '../actions/current_branch_onto';
+import { interactiveBranchSelection } from '../actions/log';
+import { graphite } from '../lib/runner';
 
 const args = {
   branch: {
@@ -22,7 +22,7 @@ const args = {
 } as const;
 
 export const command = 'onto [branch]';
-export const canonical = 'upstack onto';
+export const canonical = 'onto';
 export const aliases = ['o'];
 export const description =
   'Rebase the current branch onto the latest commit of the target branch and restack all of its descendants. If no branch is passed in, opens an interactive selector.';

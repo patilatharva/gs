@@ -1,7 +1,7 @@
 import yargs from 'yargs';
-import { deleteBranchAction } from '../../actions/delete_branch';
-import { graphite } from '../../lib/runner';
-import { interactiveBranchSelection } from '../../actions/log';
+import { deleteBranchAction } from '../actions/delete_branch';
+import { graphite } from '../lib/runner';
+import { interactiveBranchSelection } from '../actions/log';
 
 const args = {
   branch: {
@@ -23,7 +23,7 @@ type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const aliases = ['dl'];
 export const command = 'delete [name]';
-export const canonical = 'branch delete';
+export const canonical = 'delete';
 export const description =
   'Delete a branch and its corresponding Charcoal metadata.';
 export const builder = args;

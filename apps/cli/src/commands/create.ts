@@ -1,6 +1,6 @@
 import yargs from 'yargs';
-import { createBranchAction } from '../../actions/create_branch';
-import { graphite } from '../../lib/runner';
+import { createBranchAction } from '../actions/create_branch';
+import { graphite } from '../lib/runner';
 
 const args = {
   name: {
@@ -43,7 +43,7 @@ type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const aliases = ['c'];
 export const command = 'create [name]';
-export const canonical = 'branch create';
+export const canonical = 'create';
 export const description =
   'Create a new branch stacked on top of the current branch and commit staged changes. If no branch name is specified but a commit message is passed, generate a branch name from the commit message.';
 export const builder = args;

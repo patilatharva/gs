@@ -1,6 +1,6 @@
 import yargs from 'yargs';
-import { checkoutBranch } from '../../actions/checkout_branch';
-import { graphite } from '../../lib/runner';
+import { checkoutBranch } from '../actions/checkout_branch';
+import { graphite } from '../lib/runner';
 
 const args = {
   branch: {
@@ -21,7 +21,7 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'checkout [branch]';
-export const canonical = 'branch checkout';
+export const canonical = 'checkout';
 export const description =
   'Switch to a branch. If no branch is provided, opens an interactive selector.';
 export const aliases = ['co'];
