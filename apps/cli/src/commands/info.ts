@@ -1,6 +1,6 @@
 import yargs from 'yargs';
-import { showBranchInfo } from '../../actions/show_branch';
-import { graphite } from '../../lib/runner';
+import { showBranchInfo } from '../actions/show_branch';
+import { graphite } from '../lib/runner';
 
 const args = {
   patch: {
@@ -28,7 +28,7 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'info';
-export const canonical = 'branch info';
+export const canonical = 'info';
 export const aliases = ['i'];
 export const description = 'Display information about the current branch.';
 export const builder = args;

@@ -1,6 +1,6 @@
 import yargs from 'yargs';
-import { squashCurrentBranch } from '../../actions/squash';
-import { graphite } from '../../lib/runner';
+import { squashCurrentBranch } from '../actions/squash';
+import { graphite } from '../lib/runner';
 
 const args = {
   message: {
@@ -27,7 +27,7 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'squash';
-export const canonical = 'branch squash';
+export const canonical = 'squash';
 export const aliases = ['sq'];
 export const description =
   'Squash all commits in the current branch and restack upstack branches.';

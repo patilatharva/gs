@@ -1,8 +1,8 @@
 import chalk from 'chalk';
 import fs from 'fs-extra';
 import yargs from 'yargs';
-import { captureState, recreateState } from '../../lib/debug_context';
-import { graphite } from '../../lib/runner';
+import { captureState, recreateState } from '../lib/debug_context';
+import { graphite } from '../lib/runner';
 
 const args = {
   recreate: {
@@ -23,7 +23,7 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'debug-context';
-export const canonical = 'feedback debug-context';
+export const canonical = 'debug-context';
 export const description =
   'Print a debug summary of your repo. Useful for creating bug report details.';
 export const builder = args;

@@ -126,10 +126,7 @@ async function graphiteHelper(
   try {
     refreshPRInfoInBackground(context);
 
-    if (
-      canonicalName !== 'repo init' &&
-      !context.repoConfig.graphiteInitialized()
-    ) {
+    if (canonicalName !== 'init' && !context.repoConfig.graphiteInitialized()) {
       context.splog.info(
         `gs has not been initialized, attempting to setup now...`
       );

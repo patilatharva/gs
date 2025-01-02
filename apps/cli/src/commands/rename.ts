@@ -1,7 +1,7 @@
 import yargs from 'yargs';
-import { renameCurrentBranch } from '../../actions/rename_branch';
-import { ExitFailedError } from '../../lib/errors';
-import { graphite } from '../../lib/runner';
+import { renameCurrentBranch } from '../actions/rename_branch';
+import { ExitFailedError } from '../lib/errors';
+import { graphite } from '../lib/runner';
 
 const args = {
   name: {
@@ -23,7 +23,7 @@ type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'rename [name]';
 export const aliases = ['rn'];
-export const canonical = 'branch rename';
+export const canonical = 'rename';
 export const description =
   'Rename a branch and update metadata referencing it. If no branch name is supplied, you will be prompted for a new branch name. Note that this removes any associated GitHub pull request.';
 export const builder = args;

@@ -1,6 +1,6 @@
 import yargs from 'yargs';
-import { trackBranch } from '../../actions/track_branch';
-import { graphite } from '../../lib/runner';
+import { trackBranch } from '../actions/track_branch';
+import { graphite } from '../lib/runner';
 
 const args = {
   branch: {
@@ -28,7 +28,7 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'track [branch]';
-export const canonical = 'branch track';
+export const canonical = 'track';
 export const aliases = ['tr'];
 export const description = [
   'Start tracking the current (or provided) branch with gs by selecting its parent.',

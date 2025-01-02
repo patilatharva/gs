@@ -1,5 +1,5 @@
 import yargs from 'yargs';
-import { graphiteWithoutRepo } from '../../lib/runner';
+import { graphiteWithoutRepo } from '../lib/runner';
 
 const args = {
   enable: {
@@ -20,7 +20,7 @@ type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'tips';
 export const description = 'Show tips while using gs';
-export const canonical = 'user tips';
+export const canonical = 'tips';
 export const builder = args;
 export const handler = async (argv: argsT): Promise<void> => {
   return graphiteWithoutRepo(argv, canonical, async (context) => {
