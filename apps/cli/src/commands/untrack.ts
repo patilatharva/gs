@@ -1,6 +1,6 @@
 import yargs from 'yargs';
-import { untrackBranch } from '../../actions/untrack_branch';
-import { graphite } from '../../lib/runner';
+import { untrackBranch } from '../actions/untrack_branch';
+import { graphite } from '../lib/runner';
 
 const args = {
   branch: {
@@ -21,7 +21,7 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'untrack [branch]';
-export const canonical = 'branch untrack';
+export const canonical = 'untrack';
 export const aliases = ['ut'];
 export const description =
   'Stop tracking a branch with gs. If the branch has children, they will also be untracked. Default to the current branch if none is passed in.';

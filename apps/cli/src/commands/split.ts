@@ -1,6 +1,6 @@
 import yargs from 'yargs';
-import { splitCurrentBranch } from '../../actions/split';
-import { graphite } from '../../lib/runner';
+import { splitCurrentBranch } from '../actions/split';
+import { graphite } from '../lib/runner';
 
 const args = {
   ['by-commit']: {
@@ -21,7 +21,7 @@ const args = {
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'split';
-export const canonical = 'branch split';
+export const canonical = 'split';
 export const aliases = ['sp'];
 export const description =
   'Split the current branch into multiple single-commit branches.';

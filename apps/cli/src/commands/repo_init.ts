@@ -1,6 +1,6 @@
 import yargs from 'yargs';
-import { init } from '../../actions/init';
-import { graphite } from '../../lib/runner';
+import { init } from '../actions/init';
+import { graphite } from '../lib/runner';
 
 const args = {
   trunk: {
@@ -20,7 +20,7 @@ type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
 export const command = 'init';
 export const aliases = ['i'];
-export const canonical = 'repo init';
+export const canonical = 'init';
 export const description =
   'Create or regenerate a `.graphite_repo_config` file.';
 export const builder = args;

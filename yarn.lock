@@ -350,8 +350,7 @@ __metadata:
     typescript: ^4.7.3
     yargs: ^17.5.1
   bin:
-    graphite: dist/src/index.js
-    gt: dist/src/index.js
+    gs: dist/src/index.js
   languageName: unknown
   linkType: soft
 
