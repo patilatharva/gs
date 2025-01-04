@@ -41,7 +41,7 @@ const args = {
 } as const;
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
-export const aliases = ['c'];
+export const aliases = ['cr'];
 export const command = 'create [name]';
 export const canonical = 'create';
 export const description =
