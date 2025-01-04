@@ -1,6 +1,6 @@
 import yargs from 'yargs';
-import { editDownstack } from '../../actions/edit/edit_downstack';
-import { graphite } from '../../lib/runner';
+import { editDownstack } from '../actions/edit/edit_downstack';
+import { graphite } from '../lib/runner';
 
 const args = {
   input: {
@@ -12,10 +12,10 @@ const args = {
 } as const;
 type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
 
-export const command = 'edit';
-export const canonical = 'downstack edit';
+export const command = 'reorder';
+export const canonical = 'reorder';
 export const description =
-  'Edit the order of the branches between trunk and the current branch, restacking all of their descendants.';
+  'Reorder branches between trunk and the current branch, restacking all of their descendants.';
 export const builder = args;
 export const aliases = ['e'];
 
