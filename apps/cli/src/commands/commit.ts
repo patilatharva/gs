@@ -1,15 +1,46 @@
-import { Argv } from 'yargs';
+import yargs from 'yargs';
+import { commitCreateAction } from '../actions/commit_create';
+import { graphite } from '../lib/runner';
 
-export const command = 'commit <command>';
-export const desc =
-  'Commands that operate on commits. Run `gs commit --help` to learn more.';
+const args = {
+  all: {
+    describe: `Stage all changes before committing.`,
+    demandOption: false,
+    default: false,
+    type: 'boolean',
+    alias: 'a',
+  },
+  message: {
+    type: 'string',
+    alias: 'm',
+    describe: 'The message for the new commit.',
+    required: false,
+  },
+  patch: {
+    describe: `Pick hunks to stage before committing.`,
+    demandOption: false,
+    default: false,
+    type: 'boolean',
+    alias: 'p',
+  },
+} as const;
 
+type argsT = yargs.Arguments<yargs.InferredOptionTypes<typeof args>>;
+
+export const command = 'commit';
+export const canonical = 'commit';
 export const aliases = ['c'];
-export const builder = function (yargs: Argv): Argv {
-  return yargs
-    .commandDir('commit-commands', {
-      extensions: ['js'],
-    })
-    .strict()
-    .demandCommand();
+export const description = 'Create a new commit and restack upstack branches.';
+export const builder = args;
+export const handler = async (argv: argsT): Promise<void> => {
+  return graphite(argv, canonical, async (context) =>
+    commitCreateAction(
+      {
+        message: argv.message,
+        addAll: argv.all,
+        patch: argv.patch,
+      },
+      context
+    )
+  );
 };
