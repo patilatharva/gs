@@ -6,7 +6,7 @@
 
 ## Install
 
-`brew install danerwilliams/tap/charcoal`
+`brew install patilatharva/tap/gs`
 
 ## What is Graphite?
 

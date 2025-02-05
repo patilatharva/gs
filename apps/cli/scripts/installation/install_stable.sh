@@ -1,3 +1,3 @@
 #!/bin/bash
 
-npm i -g @danerwilliams/charcoal
+npm i -g @patilatharva/gs

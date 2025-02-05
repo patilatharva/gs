@@ -1,11 +1,11 @@
 {
-  "name": "@danerwilliams/charcoal",
+  "name": "@patilatharva/gs",
   "version": "0.2.3",
   "license": "None",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
-  "homepage": "https://github.com/danerwilliams/charcoal",
-  "repository": "github:danerwilliams/charcoal",
+  "homepage": "https://github.com/patilatharva/gs",
+  "repository": "github:patilatharva/gs",
   "dependencies": {
     "@withgraphite/graphite-cli-routes": "0.31.0",
     "@withgraphite/retype": "0.3.11",
@@ -54,9 +54,7 @@
   "files": [
     "dist"
   ],
-  "bin": {
-    "gs": "dist/src/index.js"
-  },
+  "bin": "dist/src/index.js",
   "devDependencies": {
     "@types/chai": "^4.3.1",
     "@types/chai-as-promised": "^7.1.5",

@@ -83,7 +83,7 @@ for (const scene of [new CloneScene()]) {
           },
           scene.getContext()
         )
-      ).to.eventually.be.rejectedWith('Killed Charcoal early.');
+      ).to.eventually.be.rejectedWith('Killed gs early.');
     });
 
     it('can reset trunk from remote', async () => {
