@@ -57,7 +57,7 @@ export const repoConfigFactory = spiffy({
         }
 
         throw new ExitFailedError(
-          "Could not determine the host of this repo (e.g. 'github.com' in the repo 'https://github.com/danerwilliams/gs'). Please run `gs repo owner --set <owner>` to manually set the repo owner."
+          "Could not determine the host of this repo (e.g. 'github.com' in the repo 'https://github.com/patilatharva/gs'). Please run `gs repo owner --set <owner>` to manually set the repo owner."
         );
       },
 
@@ -73,7 +73,7 @@ export const repoConfigFactory = spiffy({
         }
 
         throw new ExitFailedError(
-          "Could not determine the owner of this repo (e.g. 'gs' in the repo 'danerwilliams/gs'). Please run `gs repo owner --set <owner>` to manually set the repo owner."
+          "Could not determine the owner of this repo (e.g. 'gs' in the repo 'patilatharva/gs'). Please run `gs repo owner --set <owner>` to manually set the repo owner."
         );
       },
 
@@ -88,7 +88,7 @@ export const repoConfigFactory = spiffy({
         }
 
         throw new ExitFailedError(
-          "Could not determine the name of this repo (e.g. 'gs' in the repo 'danerwilliams/gs'). Please run `gs repo name --set <owner>` to manually set the repo name."
+          "Could not determine the name of this repo (e.g. 'gs' in the repo 'patilatharva/gs'). Please run `gs repo name --set <owner>` to manually set the repo name."
         );
       },
     } as const;
@@ -110,7 +110,7 @@ function inferRepoGitHubInfo(remote: string): {
   });
 
   const inferError = new ExitFailedError(
-    `Failed to infer the owner and name of this repo from remote ${remote} "${url}". Please run \`gs repo owner --set <owner>\` and \`gs repo name --set <name>\` to manually set the repo owner/name. (e.g. in the repo 'danerwilliams/gs', 'gs' is the repo owner and 'gs' is the repo name)`
+    `Failed to infer the owner and name of this repo from remote ${remote} "${url}". Please run \`gs repo owner --set <owner>\` and \`gs repo name --set <name>\` to manually set the repo owner/name. (e.g. in the repo 'patilatharva/gs', 'gs' is the repo owner and 'gs' is the repo name)`
   );
   if (!url) {
     throw inferError;

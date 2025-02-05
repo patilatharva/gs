@@ -9,9 +9,7 @@ export async function getAction(
   _args: { branchName: string | undefined; force: boolean },
   context: TContext
 ): Promise<void> {
-  context.splog.message(
-    '⚠️ This command is not not yet implemented in gs :-( \n\nPlease check out the issue on GitHub https://github.com/danerwilliams/charcoal/issues/6'
-  );
+  context.splog.message('⚠️ This command is not not yet implemented in gs :(');
 }
 
 export async function getBranchesFromRemote(

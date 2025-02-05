@@ -23,7 +23,7 @@ jobs:
       - name: Install
         run: yarn install --immutable
       - name: Lint
-        run: yarn workspace @danerwilliams/charcoal run lint
+        run: yarn workspace @patilatharva/gs run lint
       - name: Build
         run: yarn turbo run build
       - name: Setup git
@@ -31,7 +31,7 @@ jobs:
       - name: Git Version
         run: git --version
       - name: Test
-        run: yarn workspace @danerwilliams/charcoal run test-ci
+        run: yarn workspace @patilatharva/gs run test-ci
 
   superlinter:
     name: 'Run superlinter'
