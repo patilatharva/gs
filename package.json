@@ -3,8 +3,7 @@
   "name": "gs",
   "workspaces": {
     "packages": [
-      "./apps/cli",
-      "./libs/gti-cli-shared-types"
+      "./apps/cli"
     ]
   },
   "packageManager": "yarn@3.3.1",

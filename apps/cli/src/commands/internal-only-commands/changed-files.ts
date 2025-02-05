@@ -1,6 +1,6 @@
-import { ChangedFiles } from '@danerwilliams/gti-cli-shared-types';
 import yargs from 'yargs';
 import { graphite } from '../../lib/runner';
+import { ChangedFiles } from '../../lib/cli_shared_types';
 
 const args = {
   branch: {

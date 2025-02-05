@@ -1,9 +1,9 @@
-import { BranchInfo } from '@danerwilliams/gti-cli-shared-types';
 import yargs from 'yargs';
 import { TContext } from '../../lib/context';
 import { UntrackedBranchError } from '../../lib/errors';
 import { getMergeBaseAsync } from '../../lib/git/merge_base';
 import { graphite } from '../../lib/runner';
+import { BranchInfo } from '../../lib/cli_shared_types';
 
 const args = {} as const;
 

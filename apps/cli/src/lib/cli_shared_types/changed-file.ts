@@ -1,14 +1,14 @@
-import type { RepoRelativePath } from "./common";
+import type { RepoRelativePath } from './common';
 
 export type ChangedFileType =
-  | `${"TRACKED" | "PARTIALLY_TRACKED" | "UNTRACKED"}_${
-      | "ADD"
-      | "MODIFY"
-      | "REMOVE"
-      | "COPY"
-      | "RENAME"}`
-  | "UNRESOLVED"
-  | "RESOLVED";
+  | `${'TRACKED' | 'PARTIALLY_TRACKED' | 'UNTRACKED'}_${
+      | 'ADD'
+      | 'MODIFY'
+      | 'REMOVE'
+      | 'COPY'
+      | 'RENAME'}`
+  | 'UNRESOLVED'
+  | 'RESOLVED';
 export type ChangedFile = {
   path: RepoRelativePath;
   status: ChangedFileType;
