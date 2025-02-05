@@ -1,4 +1,4 @@
-import type { BranchName, PRNumber } from "./common";
+import type { BranchName, PRNumber } from './common';
 
 export type BranchInfo = {
   title: string;

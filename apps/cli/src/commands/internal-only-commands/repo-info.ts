@@ -1,10 +1,10 @@
 import yargs from 'yargs';
 import { graphite } from '../../lib/runner';
-import { RepoInfo } from '@danerwilliams/gti-cli-shared-types';
 import {
   currentGitRepoPrecondition,
   getRepoRootPathPrecondition,
 } from '../../lib/preconditions';
+import { RepoInfo } from '../../lib/cli_shared_types';
 
 const args = {} as const;
 

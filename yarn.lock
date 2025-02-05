@@ -310,7 +310,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@danerwilliams/charcoal@workspace:apps/cli"
   dependencies:
-    "@danerwilliams/gti-cli-shared-types": "workspace:*"
     "@types/chai": ^4.3.1
     "@types/chai-as-promised": ^7.1.5
     "@types/fs-extra": ^9.0.13
@@ -323,9 +322,9 @@ __metadata:
     "@types/yargs": ^17.0.10
     "@typescript-eslint/eslint-plugin": ^5.27.1
     "@typescript-eslint/parser": ^5.27.1
-    "@withgraphite/graphite-cli-routes": ^0.31.0
-    "@withgraphite/retype": ^0.3.11
-    "@withgraphite/retyped-routes": ^0.3.1
+    "@withgraphite/graphite-cli-routes": 0.31.0
+    "@withgraphite/retype": 0.3.11
+    "@withgraphite/retyped-routes": 0.3.1
     chai: ^4.3.6
     chai-as-promised: ^7.1.1
     chalk: ^4.1.2
@@ -351,14 +350,6 @@ __metadata:
     yargs: ^17.5.1
   bin:
     gs: dist/src/index.js
-  languageName: unknown
-  linkType: soft
-
-"@danerwilliams/gti-cli-shared-types@workspace:*, @danerwilliams/gti-cli-shared-types@workspace:libs/gti-cli-shared-types":
-  version: 0.0.0-use.local
-  resolution: "@danerwilliams/gti-cli-shared-types@workspace:libs/gti-cli-shared-types"
-  dependencies:
-    typescript: ^4.6.4
   languageName: unknown
   linkType: soft
 
@@ -1043,7 +1034,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@withgraphite/graphite-cli-routes@npm:^0.31.0":
+"@withgraphite/graphite-cli-routes@npm:0.31.0":
   version: 0.31.0
   resolution: "@withgraphite/graphite-cli-routes@npm:0.31.0"
   dependencies:
@@ -1053,7 +1044,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@withgraphite/retype@npm:^0.3.11":
+"@withgraphite/retype@npm:0.3.11, @withgraphite/retype@npm:^0.3.11":
   version: 0.3.11
   resolution: "@withgraphite/retype@npm:0.3.11"
   checksum: c8c1123bc90576a0ca0940bfef8a9efb43149ccab0668a3621fc894f3afaf558aa13dd05f447722db35d8fda0d14adf8fa7224d262ec712d6db51553b893e3f4
@@ -1067,7 +1058,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@withgraphite/retyped-routes@npm:^0.3.1":
+"@withgraphite/retyped-routes@npm:0.3.1":
   version: 0.3.1
   resolution: "@withgraphite/retyped-routes@npm:0.3.1"
   dependencies:
@@ -5811,16 +5802,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.6.4, typescript@npm:^4.9.4":
-  version: 4.9.5
-  resolution: "typescript@npm:4.9.5"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: ee000bc26848147ad423b581bd250075662a354d84f0e06eb76d3b892328d8d4440b7487b5a83e851b12b255f55d71835b008a66cbf8f255a11e4400159237db
-  languageName: node
-  linkType: hard
-
 "typescript@npm:^4.7.3":
   version: 4.7.4
   resolution: "typescript@npm:4.7.4"
@@ -5831,13 +5812,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.6.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.9.4#~builtin<compat/typescript>":
+"typescript@npm:^4.9.4":
   version: 4.9.5
-  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=7ad353"
+  resolution: "typescript@npm:4.9.5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 2eee5c37cad4390385db5db5a8e81470e42e8f1401b0358d7390095d6f681b410f2c4a0c496c6ff9ebd775423c7785cdace7bcdad76c7bee283df3d9718c0f20
+  checksum: ee000bc26848147ad423b581bd250075662a354d84f0e06eb76d3b892328d8d4440b7487b5a83e851b12b255f55d71835b008a66cbf8f255a11e4400159237db
   languageName: node
   linkType: hard
 
@@ -5848,6 +5829,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 9096d8f6c16cb80ef3bf96fcbbd055bf1c4a43bd14f3b7be45a9fbe7ada46ec977f604d5feed3263b4f2aa7d4c7477ce5f9cd87de0d6feedec69a983f3a4f93e
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^4.9.4#~builtin<compat/typescript>":
+  version: 4.9.5
+  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=7ad353"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 2eee5c37cad4390385db5db5a8e81470e42e8f1401b0358d7390095d6f681b410f2c4a0c496c6ff9ebd775423c7785cdace7bcdad76c7bee283df3d9718c0f20
   languageName: node
   linkType: hard
 
