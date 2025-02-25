@@ -9,7 +9,6 @@ import { submitPullRequest } from './submit_prs';
 import {
   buildLocalPrStack as generateLocalPrStack,
   createPrBodyFooter,
-  footerFooter,
   footerTitle,
 } from '../create_pr_body_footer';
 import { execFileSync, execSync } from 'child_process';
@@ -175,7 +174,7 @@ export async function submitAction(
     const hasPrFooterChanged =
       JSON.stringify(existingStack) !== JSON.stringify(prStackToSubmit);
 
-    if (hasPrFooterChanged) {
+    if (hasPrFooterChanged && prInfo.number) {
       const newPrFooter = createPrBodyFooter(prStackToSubmit, prInfo.number);
       execFileSync('gh', [
         'pr',
@@ -281,11 +280,11 @@ export function updatePrBodyFooter(
     // String value of the footer title, allowing for any surrounding whitespace.
     `\\s*${footerTitle.trim()}\\s*` +
       // Any characters in between.
-      `[\\s\\S]*` +
-      // String value of the footer footer ("This tree was auto-generated
-      // by...") with any special characters escaped + allowing for any
-      // surrounding whitespace.
-      `\\s*${footerFooter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').trim()}\\s*`
+      `[\\s\\S]*`
+    // String value of the footer footer ("This tree was auto-generated
+    // by...") with any special characters escaped + allowing for any
+    // surrounding whitespace.
+    // `\\s*${footerFooter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').trim()}\\s*`
   );
 
   // If the footer doesn't exist, just append.

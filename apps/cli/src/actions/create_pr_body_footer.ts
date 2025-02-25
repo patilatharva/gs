@@ -6,26 +6,18 @@ export const footerFooter =
 
 export function createPrBodyFooter(
   prStack: Array<string> | null,
-  currentPrId?: number
+  currentPrId: number
 ): string {
   if (!prStack) {
     return '';
   }
 
+  // Check if the PR number exists in the string.
+  const regex = new RegExp(`#${currentPrId}\\b`);
   // Append ' 👈' to the PR that matches the number.
-  if (currentPrId) {
-    // Check if the PR number exists in the string.
-    const regex = new RegExp(`#${currentPrId}`);
-
-    prStack = prStack.map((pr) => {
-      if (regex.test(pr)) {
-        return pr + ' 👈';
-      }
-      return pr;
-    });
-  }
-
-  return `${footerTitle}${'\n' + prStack.join('\n')}${footerFooter}`;
+  prStack = prStack.map((pr) => (regex.test(pr) ? pr + ' 👈' : pr));
+  // return `${footerTitle}${'\n' + prStack.join('\n')}${footerFooter}`;
+  return `${footerTitle}${prStack.join('\n')} `;
 }
 
 export function buildLocalPrStack({
