@@ -13,10 +13,12 @@ export async function syncPrInfo(
   }
 
   const upsertInfo = await getPrInfoForBranches(
-    branchNames.map((branchName) => ({
-      branchName,
-      prNumber: context.engine.getPrInfo(branchName)?.number,
-    }))
+    branchNames
+      .filter((branchName) => !context.engine.isTrunk(branchName))
+      .map((branchName) => ({
+        branchName,
+        prNumber: context.engine.getPrInfo(branchName)?.number,
+      }))
   );
 
   upsertPrInfoForBranches(upsertInfo, context.engine);
