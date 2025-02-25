@@ -159,6 +159,7 @@ function createNewPrOnGitHub(
     request.title ?? '',
     '--body',
     request.body ?? '',
+    ...(request.draft ? ['--draft'] : []),
   ])
     .toString()
     .trim();

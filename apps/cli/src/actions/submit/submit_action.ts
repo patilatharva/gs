@@ -7,11 +7,12 @@ import { getPRInfoForBranches } from './prepare_branches';
 import { validateBranchesToSubmit } from './validate_branches';
 import { submitPullRequest } from './submit_prs';
 import {
+  buildLocalPrStack as generateLocalPrStack,
   createPrBodyFooter,
-  footerFooter,
   footerTitle,
 } from '../create_pr_body_footer';
-import { execFileSync } from 'child_process';
+import { execFileSync, execSync } from 'child_process';
+import assert from 'assert';
 
 // eslint-disable-next-line max-lines-per-function
 export async function submitAction(
@@ -78,9 +79,7 @@ export async function submitAction(
   await validateBranchesToSubmit(branchNames, context);
 
   context.splog.info(
-    chalk.blueBright(
-      '✏️  Preparing to submit PRs for the following branches...'
-    )
+    chalk.blueBright('✏️ Preparing to submit PRs for the following branches...')
   );
   await populateRemoteShasPromise;
   const submissionInfos = await getPRInfoForBranches(
@@ -108,7 +107,7 @@ export async function submitAction(
   }
 
   context.splog.info(
-    chalk.blueBright('📨 Pushing to remote and creating/updating PRs...')
+    chalk.blueBright('🌎 Pushing to remote and creating/updating PRs...')
   );
 
   for (const submissionInfo of submissionInfos) {
@@ -143,39 +142,130 @@ export async function submitAction(
   }
 
   context.splog.info(
-    chalk.blueBright('\n🌳 Updating dependency trees in PR bodies...')
+    chalk.blueBright('\n📌 Updating dependency stacks in PR bodies...')
+  );
+
+  // Get the merged downstack that we'll have to prepend to each stack.
+  // We have to infer this from GitHub because the PR info of merged branches
+  // gets lost locally.
+  const commonMergedDownstack = await getCommonMergedDownstackAsync(
+    context,
+    branchNames
   );
 
   for (const branch of branchNames) {
     const prInfo = context.engine.getPrInfo(branch);
-    const footer = createPrBodyFooter(context, branch);
-
     if (!prInfo) {
       throw new Error(`PR info is undefined for branch ${branch}`);
     }
 
-    const prFooterChanged = !prInfo.body?.includes(footer);
+    const newLocalStack = generateLocalPrStack({
+      context,
+      prBranch: branch,
+    });
+    let prStackToSubmit: Array<string> | null =
+      commonMergedDownstack.concat(newLocalStack);
+    // If the stack only has a single branch, don't submit it.
+    if (prStackToSubmit.length === 1) {
+      prStackToSubmit = null;
+    }
 
-    if (prFooterChanged) {
+    const existingStack = getExistingPrStack(prInfo.body);
+    const hasPrFooterChanged =
+      JSON.stringify(existingStack) !== JSON.stringify(prStackToSubmit);
+
+    if (hasPrFooterChanged && prInfo.number) {
+      const newPrFooter = createPrBodyFooter(prStackToSubmit, prInfo.number);
       execFileSync('gh', [
         'pr',
         'edit',
         `${prInfo.number}`,
         '--body',
-        updatePrBodyFooter(prInfo.body, footer),
+        updatePrBodyFooter(prInfo.body, newPrFooter),
       ]);
-
-      context.splog.info(
-        `${chalk.green(branch)}: ${prInfo.url} (${
-          prFooterChanged ? chalk.yellow('Updated') : 'No-op'
-        })`
-      );
     }
+    context.splog.info(
+      `${chalk.green(branch)}: ${prInfo.url} (${
+        hasPrFooterChanged ? chalk.yellow('updated') : 'no-op'
+      })`
+    );
   }
 
   if (!context.interactive) {
     return;
   }
+}
+
+function getExistingPrStack(body: string | undefined): Array<string> | null {
+  if (!body) {
+    return null;
+  }
+
+  const prStackPattern = new RegExp(
+    // Matches one or more digits.
+    `\\d+` +
+      // Matches the literal period '.'.
+      `\\.` +
+      // Matches a space character.
+      `\\s` +
+      // Matches the # symbol followed by one or more digits.
+      `#\\d+`,
+    'g'
+  );
+
+  const prStack = body.match(prStackPattern);
+  return prStack ? Array.from(prStack) : null;
+}
+
+async function getCommonMergedDownstackAsync(
+  context: TContext,
+  branchNames: Array<string>
+): Promise<Array<string>> {
+  // Generate the local PR stack of an arbitrary branch in the stack.
+  assert(branchNames.length > 0);
+  const localStack = generateLocalPrStack({
+    context,
+    prBranch: branchNames[0],
+  });
+
+  // Get that branch's last generated PR stack from its GitHub PR body.
+  const prInfo = context.engine.getPrInfo(branchNames[0]);
+  const existingStack = getExistingPrStack(prInfo?.body);
+
+  if (
+    !existingStack ||
+    JSON.stringify(localStack) === JSON.stringify(existingStack)
+  ) {
+    // No merged downstack.
+    return [];
+  }
+
+  // Find the last merged PR in the existing PR stack on GitHub.
+  const nodesInLocalStack = new Set(localStack);
+  for (let idx = existingStack.length - 1; idx >= 0; idx--) {
+    const existingStackNode = existingStack[idx];
+
+    if (nodesInLocalStack.has(existingStackNode)) {
+      // Not merged.
+      continue;
+    }
+
+    // We know this PR is closed or merged because its branch is missing locally.
+    const prId = existingStackNode.split('#')[1]?.trim();
+    const closedOrMergedPrInfo = await JSON.parse(
+      execSync(`gh pr view ${prId} --json state`).toString()
+    );
+
+    // If this PR's merged, the relevant downstack (that's now lost locally),
+    // is this PR plus its parents in the PR list.
+    if (closedOrMergedPrInfo.state === 'MERGED') {
+      const mergedDownstack = existingStack.slice(0, idx + 1);
+      return mergedDownstack;
+    }
+  }
+
+  // No merged downstack.
+  return [];
 }
 
 export function updatePrBodyFooter(
@@ -187,15 +277,22 @@ export function updatePrBodyFooter(
   }
 
   const regex = new RegExp(
-    `${footerTitle}[\\s\\S]*${footerFooter.replace(
-      /[.*+?^${}()|[\]\\]/g,
-      '\\$&'
-    )}`
+    // String value of the footer title, allowing for any surrounding whitespace.
+    `\\s*${footerTitle.trim()}\\s*` +
+      // Any characters in between.
+      `[\\s\\S]*`
+    // String value of the footer footer ("This tree was auto-generated
+    // by...") with any special characters escaped + allowing for any
+    // surrounding whitespace.
+    // `\\s*${footerFooter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').trim()}\\s*`
   );
 
-  const updatedBody = body.replace(regex, footer);
+  // If the footer doesn't exist, just append.
+  if (!regex.test(body)) {
+    return body + footer;
+  }
 
-  return updatedBody;
+  return body.replace(regex, footer);
 }
 
 async function selectBranches(
