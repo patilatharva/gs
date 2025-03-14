@@ -1,6 +1,6 @@
 # gs - git stacker
 
-> A CLI for managing stacked pull requests
+A CLI for managing stacked pull requests
 
 ## Install
 
