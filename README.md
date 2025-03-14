@@ -36,7 +36,7 @@ For me, that looked like `export PATH="/Users/atharva.patil/projects/gs/apps/cli
 
 ## What is gs?
 
-gs is my fork of https://github.com/danerwilliams/charcoal, a fork of https://github.com/searleser97/graphite-cli, the Graphite CLI artifact from before it was moved to closed source development.
+gs is my fork of https://github.com/danerwilliams/charcoal, a fork of https://github.com/searleser97/graphite-cli, the Graphite CLI artifact from when it was open source.
 
 ## Quick start
 
