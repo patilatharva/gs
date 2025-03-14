@@ -4,7 +4,7 @@
 
 ## Install
 
-`brew install patilatharva/tap/gs`
+~~`brew install patilatharva/tap/gs`~~ (not yet)
 
 ## What is gs?
 
