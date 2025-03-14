@@ -28,7 +28,7 @@ cd apps/cli
 yarn build-pkg
 ```
 
-Then, rename pkg/@patilatharva/gs-macos to pkg/@patilatharva/gs.
+Then, rename `pkg/@patilatharva/gs-macos` to `pkg/@patilatharva/gs`.
 
 Finally, add the folder to your PATH.
 For me, that looked like export `PATH="/Users/atharva.patil/projects/gs/apps/cli/pkg/@patilatharva:$PATH"`
