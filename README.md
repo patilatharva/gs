@@ -63,7 +63,7 @@ gs submit
 echo "more changes for first commit" >> file.js
 gs amend -a
 
-# (b)or write a new commit with gs commit
+# (b) or write a new commit with gs commit
 echo "changes for second commit" >> file.js
 gs commit -am "Second commit."
 
