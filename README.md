@@ -5,15 +5,28 @@
 ## Install
 
 ~~`brew install patilatharva/tap/gs`~~ (not yet)
-```console
 
+Setup
+```console
 # In your directory of choice
 git clone https://github.com/patilatharva/gs
 
+# Install
 npm install --global yarn
 npm install --global turbo
+```
+
+Build the monorepo
+```console
+yarn install
+turbo run build
+```
+
+Build the CLI
+```console
 cd apps/cli
 yarn build-pkg
+```
 
 Then, rename pkg/@patilatharva/gs-macos to pkg/@patilatharva/gs.
 
