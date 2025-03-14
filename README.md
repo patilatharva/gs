@@ -2,37 +2,56 @@
 
 > A CLI for managing stacked pull requests
 
-<img width="1346" alt="CleanShot 2023-09-09 at 19 48 49@2x" src="https://github.com/danerwilliams/graphite-cli/assets/22798229/17385828-f235-4b56-84dd-ad73350d55b9">
-
 ## Install
 
 `brew install patilatharva/tap/gs`
 
-## What is Graphite?
-
-From Graphite:
-
-> [Graphite](https://graphite.dev) is a **fast, simple code review platform** designed for engineers who want to **write and review smaller pull requests, stay unblocked, and ship faster**.  Anyone can start using Graphite individually without needing their coworkers to change tools - we'll seamlessly sync your code changes and reviews.  We built Graphite because we missed internal code review tools like Phabricator (at Facebook) and Critique (Google) that help engineers create, approve, and ship small, incremental changes, and long-term we’re passionate about creating products & workflows that help fast-moving eng teams achieve more.
-
 ## What is gs?
 
-gs is simply the Graphite CLI, but open source!
-
-On 7/14/2023 the Graphite team announced that they closed open source development of the Graphite CLI and [moved development to their private monorepo](https://github.com/withgraphite/graphite-cli). They also added a pay wall limiting free users to 10 open stacks at a time per organization starting 8/7/2023.
-
-Graphite is an amazing company and you should absolutely check out their products. In addition to a stacking CLI, they have an entire code review platform, merge queue, and more developer productivity tools.
-
-However, many organizations aren't interested in paying for Graphite's team plan at this time.
-
-The Graphite CLI does not need to depend on Graphite's API, so this project allows for use of the CLI with any git repository (even ones hosted on platforms other than GitHub!), entirely for free.
+gs is my fork of https://github.com/danerwilliams/charcoal, a fork of https://github.com/searleser97/graphite-cli, the Graphite CLI artifact from before it was moved to closed source development.
 
 ## User guide
 
-<https://graphite.dev/docs/graphite-cli/>
 
-Right now, the Graphite Docs are more or less in sync with the features available in gs.
+### All commands
 
-As Graphite continues to develop their private version of the CLI, however, these will become out of sync. Ideally we can add our own open source docs to accompany this project.
+| Command                  | Aliases           | Description                                                                                                               |
+|--------------------------|--------------------|---------------------------------------------------------------------------------------------------------------------------|
+| `gs amend`               | a                  | Amend the most recent commit and restack upstack branches.                                                                |
+| `gs auth`                |                    | Authenticate with the GitHub CLI to create and manage PRs in GitHub from gs.                                            |
+| `gs bottom`              | b                  | Switch to the first branch from trunk in the current stack.                                                              |
+| `gs checkout [branch]`   | co                 | Switch to a branch. If no branch is provided, opens an interactive selector.                                            |
+| `gs commit`              | c                  | Create a new commit and restack upstack branches.                                                                        |
+| `gs completion`          |                    | Set up bash or zsh tab completion.                                                                                        |
+| `gs continue`            | cont               | Continues the most recent gs command halted by a merge conflict.                                                        |
+| `gs create [name]`      | cr                 | Create a new branch stacked on top of the current branch and commit staged changes.                                       |
+| `gs debug-context`       |                    | Print a debug summary of your repo. Useful for creating bug report details.                                              |
+| `gs delete [name]`      | dl                 | Delete a branch and its corresponding gs metadata.                                                                        |
+| `gs down [steps]`       | d                  | Switch to the parent of the current branch.                                                                              |
+| `gs fish`                | fish               | Set up fish tab completion.                                                                                              |
+| `gs fold`                | f                  | Fold a branch's changes into its parent, update dependencies of descendants of the new combined branch, and restack.    |
+| `gs info`                | i                  | Display information about the current branch.                                                                            |
+| `gs log <command>`       | l                  | Commands that log your stacks.                                                                                           |
+| `gs onto [branch]`      | o                  | Rebase the current branch onto the latest commit of the target branch and restack all of its descendants.                |
+| `gs rename [name]`      | rn                 | Rename a branch and update metadata referencing it. If no branch name is supplied, you will be prompted for a new name. |
+| `gs reorder`             | e                  | Reorder branches between trunk and the current branch, restacking all of their descendants.                               |
+| `gs repo <command>`      | r                  | Read or write gs's configuration settings for the current repo. Run `gs repo --help` to learn more.                     |
+| `gs init`                | i                  | Create or regenerate a `.graphite_repo_config` file.                                                                    |
+| `gs sync`                | s                  | Pull the trunk branch from remote and delete any branches that have been merged.                                         |
+| `gs restack`             | r, fix, f          | Ensure each branch in the current stack is based on its parent, rebasing if necessary.                                   |
+| `gs split`               | sp                 | Split the current branch into multiple single-commit branches.                                                           |
+| `gs squash`              | sq                 | Squash all commits in the current branch and restack upstack branches.                                                  |
+| `gs stack <command>`     | s                  | Commands that operate on your current stack of branches. Run `gs stack --help` to learn more.                           |
+| `gs submit`              | s                  | Idempotently force push all branches in the current stack to GitHub, creating or updating distinct pull requests for each.| 
+| `gs test <command>`      | t                  | Run the provided command on each branch in the current stack and aggregate the results.                                   |
+| `gs tips`                |                    | Show tips while using gs.                                                                                                |
+| `gs top`                 | t                  | Switch to the tip branch of the current stack. Prompts if ambiguous.                                                    |
+| `gs track [branch]`      | tr                 | Start tracking the current (or provided) branch with gs by selecting its parent. This command can also fix corrupted gs metadata. |
+| `gs unbranch`            | ub                 | Delete the current branch but retain the state of files in the working tree.                                            |
+| `gs untrack [branch]`    | ut                 | Stop tracking a branch with gs. If the branch has children, they will also be untracked. Default to the current branch if none is passed in. |
+| `gs up [steps]`         | u                  | Switch to the child of the current branch. Prompts if ambiguous.                                                         |
+| `gs user <command>`      |                    | Read or write gs's user configuration settings. Run `gs user --help` to learn more.                                     |
+
 
 ## Developing and Running tests
 
@@ -59,7 +78,6 @@ Build the CLI
 
 ```
 cd apps/cli
-nvm use
 yarn install
 yarn build
 ```
@@ -100,5 +118,3 @@ yarn dev
 # then to run commands:
 gs <command>
 ```
-
-Running into difficulties getting the CLI repo set up on your system? Check out [this PR](https://github.com/withgraphite/graphite-cli/pull/1066?no-redirect=1)
