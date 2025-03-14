@@ -10,7 +10,77 @@
 
 gs is my fork of https://github.com/danerwilliams/charcoal, a fork of https://github.com/searleser97/graphite-cli, the Graphite CLI artifact from before it was moved to closed source development.
 
-## User guide
+## Quick start
+
+#### Creating a new PR
+
+```console
+# Checkout the main branch
+gs checkout main
+
+# Make changes with your editor
+echo "new code changes" >> file.js
+
+# Create a branch with a single commit
+#   - the -a/--all flag will stage any modified files
+#   - the branch will be checked out for you
+gs create -a atharva/two-way-sync
+
+# Push changes to your remote and create a new pull request
+gs submit
+
+# If you need to make any follow up changes to the PR, you can
+# amend the existing commit with gs amend/modify
+echo "more changes for first commit" >> file.js
+gs amend -a
+
+echo "changes for second commit" >> file.js
+gs commit -am "Second commit."
+
+# Submit new changes
+gs submit
+```
+
+#### Stacking a second PR
+
+```console
+# Open an interactive branch picker:
+#
+#   - select the pull request you want to stack on top of
+#   - press Enter
+#
+# to check the branch out.
+gs checkout
+
+# Make changes with your editor
+echo "Support real-time sync" > \
+  real_time_sync.tsx
+
+# Create a second PR on top of the first one
+gs create -a atharva/two-way-sync-rts
+
+# Push the stack, which will also create a 2nd pull request
+# on top of the first one
+gs submit
+```
+
+Visualize your new stack locally:
+
+```console
+gs log short  # or run `gs ls`
+```
+
+#### Pulling the latest changes from main into your stack
+
+```console
+gs sync
+
+# Checkout your branch
+gs checkout
+
+# Restack changes
+gs restack
+```
 
 
 ### All commands
