@@ -57,11 +57,13 @@ gs create -a atharva/two-way-sync
 # Push changes to your remote and create a new pull request
 gs submit
 
-# If you need to make any follow up changes to the PR, you can
-# amend the existing commit with gs amend/modify
+# If you need to make any follow up changes to the PR, you can:
+
+# (a) amend the existing commit with gs amend
 echo "more changes for first commit" >> file.js
 gs amend -a
 
+# (b)or write a new commit with gs commit
 echo "changes for second commit" >> file.js
 gs commit -am "Second commit."
 
