@@ -12,7 +12,7 @@ gs is my fork of https://github.com/danerwilliams/charcoal, a fork of https://gi
 
 ## Quick start
 
-#### Creating a new PR
+### Creating a new PR
 
 ```console
 # Checkout the main branch
@@ -41,7 +41,7 @@ gs commit -am "Second commit."
 gs submit
 ```
 
-#### Stacking a second PR
+### Stacking a second PR
 
 ```console
 # Open an interactive branch picker:
@@ -70,7 +70,7 @@ Visualize your new stack locally:
 gs log short  # or run `gs ls`
 ```
 
-#### Pulling the latest changes from main into your stack
+### Pulling the latest changes from main into your stack
 
 ```console
 gs sync
@@ -80,6 +80,15 @@ gs checkout
 
 # Restack changes
 gs restack
+```
+
+### Navigating
+
+```console
+gs up      # or `gs u`
+gs down    # or `gs d`
+gs top     # or `gs t`
+gs bottom  # or `gs b`
 ```
 
 
