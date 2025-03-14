@@ -5,6 +5,21 @@
 ## Install
 
 ~~`brew install patilatharva/tap/gs`~~ (not yet)
+```console
+
+# In your directory of choice
+git clone https://github.com/patilatharva/gs
+
+npm install --global yarn
+npm install --global turbo
+cd apps/cli
+yarn build-pkg
+
+Then, rename pkg/@patilatharva/gs-macos to pkg/@patilatharva/gs.
+
+Finally, add the folder to your PATH.
+For me, that looked like export `PATH="/Users/atharva.patil/projects/gs/apps/cli/pkg/@patilatharva:$PATH"`
+
 
 ## What is gs?
 
