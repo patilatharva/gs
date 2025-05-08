@@ -26,6 +26,7 @@ import {
 import { validateOrFixParentBranchRevision } from './parse_branches_and_meta';
 import { TScopeSpec } from './scope_spec';
 import fjsh from 'fast-json-stable-hash';
+import { TContext } from '../context';
 
 export type TEngine = {
   debug: string;
@@ -131,7 +132,9 @@ export type TEngine = {
   branchMatchesRemote: (branchName: string) => boolean;
 
   pushBranch: (branchName: string, forcePush: boolean) => void;
-  pullTrunk: () => 'PULL_DONE' | 'PULL_UNNEEDED' | 'PULL_CONFLICT';
+  pullTrunk: (
+    context?: TContext
+  ) => 'PULL_DONE' | 'PULL_UNNEEDED' | 'PULL_CONFLICT';
   hardReset: (sha?: string) => void;
   resetTrunkToRemote: () => void;
   clean: () => void;
@@ -912,28 +915,55 @@ export function composeEngine({
       assertBranchIsValidAndNotTrunkAndGetMeta(branchName);
       git.pushBranch({ remote, branchName, noVerify, forcePush });
     },
-    pullTrunk: () => {
+    pullTrunk: (context?: TContext) => {
+      if (context) {
+        context.splog.info('before prune: ' + new Date());
+      }
       git.pruneRemote(remote);
+      if (context) {
+        context.splog.info('after prune: ' + new Date());
+      }
       const currentBranchName = getCurrentBranchOrThrow();
       const trunkName = assertTrunk();
       const oldTrunkCachedMeta = cache.branches[trunkName];
       try {
         git.switchBranch(trunkName);
+        if (context) {
+          context.splog.info('before pull: ' + new Date());
+        }
         const result = git.pullBranch(remote, trunkName);
+        if (context) {
+          context.splog.info('after pull: ' + new Date());
+        }
         if (result === 'CONFLICT') {
           git.switchBranch(currentBranchName);
           return 'PULL_CONFLICT';
         }
+        if (context) {
+          context.splog.info('before getSha: ' + new Date());
+        }
         const newTrunkRevision = git.getShaOrThrow(trunkName);
+        if (context) {
+          context.splog.info('after getSha: ' + new Date());
+        }
         cache.branches[trunkName] = {
           ...oldTrunkCachedMeta,
           branchRevision: newTrunkRevision,
         };
+        if (context) {
+          context.splog.info('after destructure: ' + new Date());
+        }
         return oldTrunkCachedMeta.branchRevision === newTrunkRevision
           ? 'PULL_UNNEEDED'
           : 'PULL_DONE';
       } finally {
+        if (context) {
+          context.splog.info('before switch: ' + new Date());
+        }
         git.switchBranch(currentBranchName);
+        if (context) {
+          context.splog.info('after switch: ' + new Date());
+        }
       }
     },
     hardReset: git.hardReset,
