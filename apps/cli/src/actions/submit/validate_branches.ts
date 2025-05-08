@@ -98,6 +98,7 @@ function validateBaseRevisions(branchNames: string[], context: TContext): void {
             branchName
           )} has fallen behind trunk. You may encounter conflicts if you attempt to merge it.`
         );
+        context.splog.newline();
       }
     } else if (validatedBranches.has(parentBranchName)) {
       if (!context.engine.isBranchFixed(branchName)) {

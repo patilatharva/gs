@@ -76,6 +76,7 @@ export async function submitAction(
     chalk.blueBright(`🥞 Validating that this gs stack is ready to submit...`)
   );
   context.splog.newline();
+
   await validateBranchesToSubmit(branchNames, context);
 
   context.splog.info(
