@@ -79,7 +79,7 @@ export async function submitAction(
   await validateBranchesToSubmit(branchNames, context);
 
   context.splog.info(
-    chalk.blueBright('✏️ Preparing to submit PRs for the following branches...')
+    chalk.blueBright(`🖍️ Preparing to submit PRs for the following branches...`)
   );
   await populateRemoteShasPromise;
   const submissionInfos = await getPRInfoForBranches(
