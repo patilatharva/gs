@@ -2,6 +2,9 @@
 
 A CLI for managing stacked pull requests 🥞
 
+<img width="622" alt="Screenshot 2025-05-09 at 11 17 56 AM" src="https://github.com/user-attachments/assets/0fff7d7c-172b-444b-8816-171ab3926a1a" />
+
+
 ## Install
 
 ```console
