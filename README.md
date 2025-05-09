@@ -8,35 +8,6 @@ A CLI for managing stacked pull requests
 brew install patilatharva/tap/gs
 ```
 
-
-Dev setup
-```console
-# In your directory of choice
-git clone https://github.com/patilatharva/gs
-
-# Install
-npm install --global yarn
-npm install --global turbo
-```
-
-Build the monorepo
-```console
-yarn install
-turbo run build
-```
-
-Build the CLI
-```console
-cd apps/cli
-yarn build-pkg
-```
-
-Then, rename the executable `pkg/@patilatharva/gs-macos` to `pkg/@patilatharva/gs`.
-
-Finally, add the folder to your PATH.
-For me, that looked like `export PATH="/Users/atharva.patil/projects/gs/apps/cli/pkg/@patilatharva:$PATH"`
-
-
 ## What is gs?
 
 gs is my fork of https://github.com/danerwilliams/charcoal, a fork of https://github.com/searleser97/graphite-cli, the Graphite CLI artifact from when it was open source.
@@ -166,8 +137,6 @@ gs bottom  # or `gs b`
 
 
 ## Developing and Running tests
-
-Interested in contributing to gs? Here's how to get started.
 
 You'll need to install yarn on your machine
 
