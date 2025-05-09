@@ -4,9 +4,12 @@ A CLI for managing stacked pull requests
 
 ## Install
 
-~~`brew install patilatharva/tap/gs`~~ (not yet)
+```console
+brew install patilatharva/tap/gs
+```
 
-Setup
+
+Dev setup
 ```console
 # In your directory of choice
 git clone https://github.com/patilatharva/gs
