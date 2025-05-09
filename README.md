@@ -14,6 +14,12 @@ gs is my fork of https://github.com/danerwilliams/charcoal, a fork of https://gi
 
 ## Quick start
 
+### Initializing
+
+```console
+gs init
+```
+
 ### Creating a new PR
 
 ```console
