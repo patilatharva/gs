@@ -124,7 +124,7 @@ gs bottom  # or `gs b`
 | `gs fold`                | f                  | Fold a branch's changes into its parent, update dependencies of descendants of the new combined branch, and restack.    |
 | `gs info`                | i                  | Display information about the current branch.                                                                            |
 | `gs log <command>`       | l                  | Commands that log your stacks.                                                                                           |
-| `gs onto [branch]`      | o                  | Rebase the current branch onto the latest commit of the target branch and restack all of its descendants.                |
+| `gs onto [branch]`      | o                  | Move the current branch by rebasing it onto the latest commit of the target branch and restack all of its descendants.    |
 | `gs rename [name]`      | rn                 | Rename a branch and update metadata referencing it. If no branch name is supplied, you will be prompted for a new name. |
 | `gs reorder`             | e                  | Reorder branches between trunk and the current branch, restacking all of their descendants.                               |
 | `gs repo <command>`      | r                  | Read or write gs's configuration settings for the current repo. Run `gs repo --help` to learn more.                     |
