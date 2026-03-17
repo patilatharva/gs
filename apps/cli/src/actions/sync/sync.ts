@@ -107,8 +107,7 @@ export async function pullTrunk(
   context.splog.info(
     `🌲 Pulling ${chalk.cyan(context.engine.trunk)} from remote...`
   );
-  const pullResult = context.engine.pullTrunk(context);
-  context.splog.info(`after pull trunk: ` + new Date());
+  const pullResult = context.engine.pullTrunk();
   if (pullResult !== 'PULL_CONFLICT') {
     context.splog.info(
       pullResult === 'PULL_UNNEEDED'

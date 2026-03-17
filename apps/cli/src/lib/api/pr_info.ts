@@ -31,36 +31,38 @@ export async function getPrInfoForBranches(
   });
 
   try {
-    const response: TPRInfoToUpsert = [];
+    // Gh CLI allows for looking up by pr number or branch name
+    const results = await Promise.all(
+      [...existingPrInfo.keys(), ...branchesWithoutPrInfo].map(async (prId) => {
+        try {
+          const pr = JSON.parse(
+            execSync(
+              `gh pr view ${prId} --json state,url,title,body,number,headRefName,baseRefName,reviewDecision,isDraft`
+            ).toString()
+          );
 
-    // Gh CLI allows for looking up by pr number of branch name
-    for (const prId of [...existingPrInfo.keys(), ...branchesWithoutPrInfo]) {
-      try {
-        const pr = await JSON.parse(
-          execSync(
-            `gh pr view ${prId} --json state,url,title,body,number,headRefName,baseRefName,reviewDecision,isDraft`
-          ).toString()
-        );
+          pr.prNumber = pr.number;
+          delete pr.number;
 
-        pr.prNumber = pr.number;
-        delete pr.number;
+          if (pr.reviewDecision === '') {
+            pr.reviewDecision = undefined;
+          }
 
-        if (pr.reviewDecision === '') {
-          pr.reviewDecision = undefined;
+          return pr;
+        } catch (error) {
+          if (
+            error instanceof Error &&
+            error.message.includes('no pull requests found')
+          ) {
+            return null;
+          }
+
+          throw error;
         }
+      })
+    );
 
-        response.push(pr);
-      } catch (error) {
-        if (
-          error instanceof Error &&
-          error.message.includes('no pull requests found')
-        ) {
-          continue;
-        }
-
-        throw error;
-      }
-    }
+    const response: TPRInfoToUpsert = results.filter((pr) => pr !== null);
 
     return response.filter((pr) => {
       const branchNameIfAssociated = existingPrInfo.get(pr.prNumber);
