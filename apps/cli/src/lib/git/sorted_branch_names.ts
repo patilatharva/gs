@@ -7,7 +7,6 @@ export function getBranchNamesAndRevisions(): Record<string, string> {
     args: [
       `for-each-ref`,
       `--format=%(refname:short):%(objectname)`,
-      `--sort=-committerdate`,
       `refs/heads/`,
     ],
     onError: 'throw',

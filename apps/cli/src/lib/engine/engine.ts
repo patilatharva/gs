@@ -169,7 +169,6 @@ export function composeEngine({
   restackCommitterDateIsAuthorDate?: boolean;
 }): TEngine {
   const cacheLoader = composeCacheLoader(splog);
-  void cacheLoader;
   const originallyLoadedBranches = cacheLoader.loadCachedBranches(trunkName);
   const cache = {
     currentBranch: currentBranchOverride ?? git.getCurrentBranchName(),
@@ -431,8 +430,9 @@ export function composeEngine({
     },
     persist() {
       if (
+        !cacheLoader.wasCacheHit ||
         fjsh.hash(originallyLoadedBranches, 'sha256') !==
-        fjsh.hash(cache.branches, 'sha256')
+          fjsh.hash(cache.branches, 'sha256')
       ) {
         cacheLoader.persistCache(trunkName, cache.branches);
       }
