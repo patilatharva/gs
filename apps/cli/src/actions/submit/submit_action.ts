@@ -178,9 +178,18 @@ export async function submitAction(
 
       if (hasPrFooterChanged && prInfo.number) {
         const newPrFooter = createPrBodyFooter(prStackToSubmit, prInfo.number);
-        execFileSync('gh', ['pr', 'edit', branch, '--body', '-'], {
-          input: updatePrBodyFooter(prInfo.body, newPrFooter),
-        });
+        execFileSync(
+          'gh',
+          [
+            'api',
+            `repos/{owner}/{repo}/pulls/${prInfo.number}`,
+            '--method',
+            'PATCH',
+            '--field',
+            `body=${updatePrBodyFooter(prInfo.body, newPrFooter)}`,
+          ],
+          { stdio: ['pipe', 'pipe', 'pipe'] }
+        );
       }
       context.splog.info(
         `${chalk.green(branch)}: ${prInfo.url} (${

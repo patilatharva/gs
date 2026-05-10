@@ -114,7 +114,18 @@ async function submitPrToGithub({
     const prBaseChanged = prInfo.baseRefName !== request.base;
 
     if (prBaseChanged) {
-      execSync(`gh pr edit ${prInfo.headRefName} --base ${request.base}`);
+      execFileSync(
+        'gh',
+        [
+          'api',
+          `repos/{owner}/{repo}/pulls/${prInfo.number}`,
+          '--method',
+          'PATCH',
+          '--field',
+          `base=${request.base}`,
+        ],
+        { stdio: ['pipe', 'pipe', 'pipe'] }
+      );
     }
 
     return {
