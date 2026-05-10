@@ -28,7 +28,6 @@ export const args = {
       'If set, marks PR as draft. If --no-interactive is true, new PRs will be created in draft mode.',
     type: 'boolean',
     default: false,
-    alias: 'd',
   },
   publish: {
     describe:
