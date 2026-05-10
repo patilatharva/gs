@@ -17,7 +17,7 @@ export function pushBranch(opts: {
       opts.branchName,
       ...(opts.noVerify ? ['--no-verify'] : []),
     ],
-    options: { stdio: 'pipe' },
+    options: { stdio: 'inherit' },
     onError: 'throw',
     resource: 'pushBranch',
   });

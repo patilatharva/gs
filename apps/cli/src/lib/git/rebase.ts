@@ -62,7 +62,7 @@ function rebaseInternal(params: {
   try {
     runGitCommand({
       args: ['rebase', ...params.args],
-      options: { stdio: 'pipe', ...params.options },
+      options: { stdio: 'inherit', ...params.options },
       onError: 'throw',
       resource: params.resource,
     });
