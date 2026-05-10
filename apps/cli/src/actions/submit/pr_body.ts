@@ -40,16 +40,16 @@ export async function getPRBody(
       message: 'Body',
       choices: [
         {
-          title: `Edit Body (using ${context.userConfig.getEditor()})`,
-          value: 'edit',
-        },
-        {
           title: `Skip (${
             usePriorSubmitBody
               ? `use body from aborted submit`
               : skipDescription
           })`,
           value: 'skip',
+        },
+        {
+          title: `Edit Body (using ${context.userConfig.getEditor()})`,
+          value: 'edit',
         },
       ],
     });
