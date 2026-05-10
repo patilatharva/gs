@@ -33,7 +33,7 @@ const args = {
   restack: {
     describe: `Restack the current stack and any stacks with deleted branches.`,
     demandOption: false,
-    default: false,
+    default: true,
     type: 'boolean',
     alias: 'r',
   },
