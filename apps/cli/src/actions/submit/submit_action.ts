@@ -154,43 +154,45 @@ export async function submitAction(
     branchNames
   );
 
-  for (const branch of branchNames) {
-    const prInfo = context.engine.getPrInfo(branch);
-    if (!prInfo) {
-      throw new Error(`PR info is undefined for branch ${branch}`);
-    }
+  await Promise.all(
+    branchNames.map(async (branch) => {
+      const prInfo = context.engine.getPrInfo(branch);
+      if (!prInfo) {
+        throw new Error(`PR info is undefined for branch ${branch}`);
+      }
 
-    const newLocalStack = generateLocalPrStack({
-      context,
-      prBranch: branch,
-    });
-    let prStackToSubmit: Array<string> | null =
-      commonMergedDownstack.concat(newLocalStack);
-    // If the stack only has a single branch, don't submit it.
-    if (prStackToSubmit.length === 1) {
-      prStackToSubmit = null;
-    }
+      const newLocalStack = generateLocalPrStack({
+        context,
+        prBranch: branch,
+      });
+      let prStackToSubmit: Array<string> | null =
+        commonMergedDownstack.concat(newLocalStack);
+      // If the stack only has a single branch, don't submit it.
+      if (prStackToSubmit.length === 1) {
+        prStackToSubmit = null;
+      }
 
-    const existingStack = getExistingPrStack(prInfo.body);
-    const hasPrFooterChanged =
-      JSON.stringify(existingStack) !== JSON.stringify(prStackToSubmit);
+      const existingStack = getExistingPrStack(prInfo.body);
+      const hasPrFooterChanged =
+        JSON.stringify(existingStack) !== JSON.stringify(prStackToSubmit);
 
-    if (hasPrFooterChanged && prInfo.number) {
-      const newPrFooter = createPrBodyFooter(prStackToSubmit, prInfo.number);
-      execFileSync('gh', [
-        'pr',
-        'edit',
-        `${prInfo.number}`,
-        '--body',
-        updatePrBodyFooter(prInfo.body, newPrFooter),
-      ]);
-    }
-    context.splog.info(
-      `${chalk.green(branch)}: ${prInfo.url} (${
-        hasPrFooterChanged ? chalk.yellow('updated') : 'no-op'
-      })`
-    );
-  }
+      if (hasPrFooterChanged && prInfo.number) {
+        const newPrFooter = createPrBodyFooter(prStackToSubmit, prInfo.number);
+        execFileSync('gh', [
+          'pr',
+          'edit',
+          `${prInfo.number}`,
+          '--body',
+          updatePrBodyFooter(prInfo.body, newPrFooter),
+        ]);
+      }
+      context.splog.info(
+        `${chalk.green(branch)}: ${prInfo.url} (${
+          hasPrFooterChanged ? chalk.yellow('updated') : 'no-op'
+        })`
+      );
+    })
+  );
 
   if (!context.interactive) {
     return;

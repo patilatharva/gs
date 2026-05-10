@@ -12,6 +12,7 @@ type TCacheLoader = {
   loadCachedBranches(
     trunkName: string | undefined
   ): Record<string, Readonly<TCachedMeta>>;
+  wasCacheHit: boolean;
   persistCache(
     trunkName: string | undefined,
     cachedBranches: Record<string, TCachedMeta>
@@ -20,14 +21,20 @@ type TCacheLoader = {
 };
 export function composeCacheLoader(splog: TSplog): TCacheLoader {
   const persistedCache = cachePersistenceFactory.load();
+  let wasCacheHit = false;
   return {
+    get wasCacheHit() {
+      return wasCacheHit;
+    },
     loadCachedBranches: (trunkName: string | undefined) => {
       splog.debug('Reading cache seed data...');
       const cacheSeed = getCacheSeed(trunkName);
       splog.debug('Loading cache...');
+      const newHash = hashSeed(cacheSeed);
+      const hashMatch = persistedCache.data.sha === newHash;
+      wasCacheHit = hashMatch;
       return (
-        (persistedCache.data.sha === hashSeed(cacheSeed) &&
-          Object.fromEntries(persistedCache.data.branches)) ||
+        (hashMatch && Object.fromEntries(persistedCache.data.branches)) ||
         parseBranchesAndMeta(
           {
             ...cacheSeed,
@@ -42,8 +49,9 @@ export function composeCacheLoader(splog: TSplog): TCacheLoader {
       cachedBranches: Record<string, TCachedMeta>
     ) => {
       splog.debug(`Persisting cache...`);
+      const persistSeed = getCacheSeed(trunkName);
       persistedCache.update((data) => {
-        data.sha = hashSeed(getCacheSeed(trunkName));
+        data.sha = hashSeed(persistSeed);
         data.branches = Object.entries(cachedBranches);
       });
     },
