@@ -182,9 +182,7 @@ export async function submitAction(
           'gh',
           [
             'api',
-            `repos/${context.repoConfig.getRepoOwner()}/${context.repoConfig.getRepoName()}/pulls/${
-              prInfo.number
-            }`,
+            `repos/{owner}/{repo}/pulls/${prInfo.number}`,
             '--method',
             'PATCH',
             '--field',
