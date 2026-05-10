@@ -1,5 +1,17 @@
 import { CommandFailedError, runGitCommand } from './runner';
 
+export function fetchRemoteTrackingBranch(
+  remote: string,
+  branchName: string
+): void {
+  runGitCommand({
+    args: [`fetch`, remote, branchName],
+    options: { stdio: 'pipe' },
+    onError: 'throw',
+    resource: 'fetchRemoteTrackingBranch',
+  });
+}
+
 /**
  * Fast-forwards a local branch ref to match remote without switching branches.
  * Returns OK if the branch was fast-forwarded successfully.

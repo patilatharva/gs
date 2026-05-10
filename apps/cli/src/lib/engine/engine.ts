@@ -936,6 +936,7 @@ export function composeEngine({
       const oldTrunkCachedMeta = cache.branches[trunkName];
 
       try {
+        git.fetchRemoteTrackingBranch(remote, trunkName);
         git.switchBranch(trunkName);
         const remoteTrunkRevision = git.getShaOrThrow(`${remote}/${trunkName}`);
         git.hardReset(remoteTrunkRevision);
