@@ -29,7 +29,7 @@ export async function syncAction(
   const branchesToSyncPrInfo = context.engine.allBranchNames.filter(
     (branchName) =>
       !context.engine.isTrunk(branchName) &&
-      !context.engine.isBranchTracked(branchName)
+      context.engine.isBranchTracked(branchName)
   );
   await syncPrInfo(branchesToSyncPrInfo, context);
 

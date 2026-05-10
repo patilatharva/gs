@@ -914,27 +914,20 @@ export function composeEngine({
     },
     pullTrunk: () => {
       git.pruneRemote(remote);
-      const currentBranchName = getCurrentBranchOrThrow();
       const trunkName = assertTrunk();
       const oldTrunkCachedMeta = cache.branches[trunkName];
-      try {
-        git.switchBranch(trunkName);
-        const result = git.pullBranch(remote, trunkName);
-        if (result === 'CONFLICT') {
-          git.switchBranch(currentBranchName);
-          return 'PULL_CONFLICT';
-        }
-        const newTrunkRevision = git.getShaOrThrow(trunkName);
-        cache.branches[trunkName] = {
-          ...oldTrunkCachedMeta,
-          branchRevision: newTrunkRevision,
-        };
-        return oldTrunkCachedMeta.branchRevision === newTrunkRevision
-          ? 'PULL_UNNEEDED'
-          : 'PULL_DONE';
-      } finally {
-        git.switchBranch(currentBranchName);
+      const result = git.fetchTrunk(remote, trunkName);
+      if (result === 'CONFLICT') {
+        return 'PULL_CONFLICT';
       }
+      const newTrunkRevision = git.getShaOrThrow(trunkName);
+      cache.branches[trunkName] = {
+        ...oldTrunkCachedMeta,
+        branchRevision: newTrunkRevision,
+      };
+      return oldTrunkCachedMeta.branchRevision === newTrunkRevision
+        ? 'PULL_UNNEEDED'
+        : 'PULL_DONE';
     },
     hardReset: git.hardReset,
     resetTrunkToRemote: () => {
