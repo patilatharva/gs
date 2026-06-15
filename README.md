@@ -19,6 +19,8 @@ gs is my fork of https://github.com/danerwilliams/charcoal, a fork of https://gi
 
 ### Initializing
 
+First, check out your main branch.
+
 ```console
 gs init
 ```
